@@ -2040,6 +2040,7 @@
     <Content Include="Template\Sb Admin2\vendor\fontawesome-free\webfonts\fa-solid-900.woff2" />
     <Content Include="Template\Sb Admin2\vendor\jquery\jquery.min.map" />
     <Content Include="Template\Sb Admin2\vendor\jquery\jquery.slim.min.map" />
+    <Content Include="Views\Home\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
