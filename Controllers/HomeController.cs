@@ -1,4 +1,5 @@
-﻿using POS.Models;
+﻿using POS.Helper;
+using POS.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace POS.Controllers
 {
     public class HomeController : Controller
     {
+        [AuthorizationFilter]
+
         public ActionResult Index()
         {
             return View();
@@ -21,37 +24,20 @@ namespace POS.Controllers
             return View();
         }
         public JsonResult CheckLogin(string username, string password)
-
         {
-
             POSEntities db = new POSEntities();
-
             var dataItem = db.Users.Where(x => x.Username == username && x.Password == password).SingleOrDefault();
-
             bool isLogged = true;
-
             if (dataItem != null)
-
             {
-
-                FormsAuthentication.SetAuthCookie(dataItem.Username, true);
-
-                var mdl = System.Web.HttpContext.Current.User.Identity.Name;
-
+                Session["Username"] = dataItem.Username;
                 isLogged = true;
-
             }
-
             else
-
             {
-
                 isLogged = false;
-
             }
-
             return Json(isLogged, JsonRequestBehavior.AllowGet);
-
         }
 
     }

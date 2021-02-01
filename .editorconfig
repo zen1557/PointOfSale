@@ -1,0 +1,7 @@
+﻿[*.cs]
+
+# CS0114: Member hides inherited member; missing override keyword
+dotnet_diagnostic.CS0114.severity = warning
+
+# IDE0027: Use expression body for accessors
+csharp_style_expression_bodied_accessors = true:silent
