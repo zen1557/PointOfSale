@@ -22,7 +22,8 @@ namespace POS.Controllers
         public JsonResult CheckLogin(string username, string password)
         {
             POSEntities db = new POSEntities();
-            var dataItem = db.Users.Where(x => x.Username == username && x.Password == password).SingleOrDefault();
+            string md5StringPassword = AppHelper.GetMd5Hash(password);
+            var dataItem = db.Users.Where(x => x.Username == username && x.Password == md5StringPassword).SingleOrDefault();
             bool isLogged = true;
             if (dataItem != null)
             {
