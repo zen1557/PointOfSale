@@ -13,6 +13,10 @@ namespace POS.Controllers
         {
             return View();
         }
+        public ActionResult AccessDenied()
+        {
+            return View();
+        }
        // [HttpGet]
         public ActionResult Login()
         {
@@ -28,6 +32,7 @@ namespace POS.Controllers
             if (dataItem != null)
             {
                 Session["Username"] = dataItem.Username;
+                Session["Role"] = dataItem.Role;
                 isLogged = true;
             }
             else
