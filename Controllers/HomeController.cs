@@ -81,6 +81,12 @@ namespace POS.Controllers
             }
             return Json(isSuccess, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult Logout()
+        {
+            Session["Username"] = null;
+            Session["Role"] = null;
+            return RedirectToAction("Login");
+        }
 
     }
 }
