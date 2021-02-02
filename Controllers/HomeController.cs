@@ -66,6 +66,14 @@ namespace POS.Controllers
 
             return Json(isSuccess, JsonRequestBehavior.AllowGet);
         }
+           [HttpGet]
+           public JsonResult GetAllUser()
+        {
+            POSEntities db = new POSEntities();
+            var dataList = db.Users.Where(x => x.Status == 1).ToList();
+            return Json(dataList, JsonRequestBehavior.AllowGet);
+        }
+
 
     }
 }
