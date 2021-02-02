@@ -1,6 +1,7 @@
 ﻿using POS.Helper;
 using POS.Models;
 using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -47,25 +48,7 @@ namespace POS.Controllers
             }
             return Json(isLogged, JsonRequestBehavior.AllowGet);
         }
-        [HttpPost]
-        public JsonResult SaveUser(User user)
-        {
-            POSEntities db = new POSEntities();
-            bool isSuccess = true;
-            try
-            {
-                user.Status = 1;
-                user.Password = AppHelper.GetMd5Hash(user.Password);
-                db.Users.Add(user);
-                db.SaveChanges();
-            }
-            catch (Exception)
-            {
-                isSuccess = false;
-            }
-
-            return Json(isSuccess, JsonRequestBehavior.AllowGet);
-        }
+        
            [HttpGet]
            public JsonResult GetAllUser()
         {
@@ -73,7 +56,31 @@ namespace POS.Controllers
             var dataList = db.Users.Where(x => x.Status == 1).ToList();
             return Json(dataList, JsonRequestBehavior.AllowGet);
         }
-
+        [HttpPost]
+        public JsonResult SaveUser(User user)
+        {
+            POSEntities db = new POSEntities();
+            bool isSuccess = true;
+            if (user.UserId > 0)
+            {
+                db.Entry(user).State = EntityState.Modified;
+            }
+            else
+            {
+                user.Status = 1;
+                user.Password = AppHelper.GetMd5Hash(user.Password);
+                db.Users.Add(user);
+            }
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+                isSuccess = false;
+            }
+            return Json(isSuccess, JsonRequestBehavior.AllowGet);
+        }
 
     }
 }

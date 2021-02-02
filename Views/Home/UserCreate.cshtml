@@ -12,7 +12,8 @@
                         <div class="form-group col-md-6">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">User Create</div>
                         </div>
-
+                        <input type="hidden" id="exampleInputUserId" />
+                        <input type="hidden" id="status" />
                         <div class="form-group col-md-6">
                             <input type="text" class="form-control form-control-user" id="exampleInputUser" aria-describedby="emailHelp" placeholder="Username">
                         </div>
@@ -27,11 +28,12 @@
                                 <option value="">--Select--</option>
                                 <option value="Admin">Admin</option>
                                 <option value="Editor">Editor</option>
+                                <option value="Editor">Visitor</option>
                             </select>
                         </div>
                         <div class="form-group col-md-6">
                             <a href="#" onclick="SaveUser()" class="btn btn-primary btn-sm">
-                                Login
+                                Save
                             </a>
                         </div>
                     </form>
@@ -74,20 +76,24 @@
     });
     function SaveUser() {
         var user = new Object();
+        user.UserId = $("#exampleInputUserId").val();
         user.Username = $("#exampleInputUser").val();
         user.Password = $("#exampleInputPassword").val();
         user.Role = $("#role").val();
+        user.Status = $("#status").val();
         var data = JSON.stringify({
             user: user
         });
         return $.ajax({
-        contentType: 'application/json; charset=utf-8',
+            contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             type: 'POST',
             url: "/Home/SaveUser",
             data: data,
             success: function (result) {
                 if (result == true) {
+                    GetAllUser();
+                    Reset();
                     alert("Save Success!");
                 }
                 else {
@@ -118,6 +124,26 @@
                 alert("Error!")
             }
         });
+    }
+        function Edit(UserId, Username, Password, Role, Status) {
+        $("#exampleInputUserId").val(UserId);
+        $("#exampleInputUser").val(Username);
+        $("#exampleInputPassword").val(Password);
+        $("#exampleInputPasswordRetype").val(Password);
+        $("#role").val(Role);
+        $("#status").val(Status);
+        $("#exampleInputPassword").hide();
+        $("#exampleInputPasswordRetype").hide();
+    }
+    function Reset() {
+        $("#exampleInputUserId").val(null);
+        $("#exampleInputUser").val(null);
+        $("#exampleInputPassword").val(null);
+        $("#exampleInputPasswordRetype").val(null);
+        $("#role").val(null);
+        $("#status").val(null);
+        $("#exampleInputPassword").show();
+        $("#exampleInputPasswordRetype").show();
     }
 
 </script>
