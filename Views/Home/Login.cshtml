@@ -1,4 +1,8 @@
-﻿<div class="bg-gradient-primary">
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="bg-gradient-primary">
     <div class="container">
         <!-- Outer Row -->
         <div class="row justify-content-center">
@@ -9,8 +13,8 @@
                         <div class="row">
                             <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
                             <div class="col-lg-6">
-                               <div class="p-5">
-\                                    <div class="text-center">
+                                <div class="p-5">
+                                    \                                    <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
                                     <form class="user">
@@ -26,11 +30,11 @@
                                                 <label class="custom-control-label" for="customCheck">Remember Me</label>
                                             </div>
                                         </div>
-                                        <a href="#" onclick="checkLogin()" class="btn btn-primary btn-user btn-block">
+                                        <a href="#" onclick="CheckLogin()" class="btn btn-primary btn-user btn-block">
                                             Login
                                         </a>
-                                       <hr>
-]                                    </form>
+                                        <hr>
+                                    </form>
                                     <hr>
                                     <div class="text-center">
                                         <a class="small" href="forgot-password.html">Forgot Password?</a>
@@ -49,28 +53,29 @@
 </div>
 
 <script>
-    function checkLogin() {
+        function CheckLogin() {
         var data = JSON.stringify({
             username: $("#exampleInputUser").val(),
-            password: $("#exampleInputPassword").val()
-        });
+        password: $("#exampleInputPassword").val()
+    });
         return $.ajax({
             contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            type: 'POST',
-            url: "/Home/CheckLogin",
-            data: data,
+        dataType: 'json',
+        type: 'POST',
+        url: "/Home/CheckLogin",
+        data: data,
             success: function (result) {
                 if (result == true) {
-                    window.location.href = "/Home/Index";
-                }
+            window.location.href = "/Home/Index";
+    }
                 else {
-                    window.location.href = "/Home/Login";
-                }
-            },
+            window.location.href = "/Home/Login";
+    }
+},
             error: function () {
-                alert("Error!")
-            }
+            alert("Error!")
+        }
         });
     }
+
 </script>

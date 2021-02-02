@@ -5,3 +5,6 @@ dotnet_diagnostic.CS0114.severity = warning
 
 # IDE0027: Use expression body for accessors
 csharp_style_expression_bodied_accessors = true:silent
+
+# IDE0067: Dispose objects before losing scope
+dotnet_diagnostic.IDE0067.severity = none
