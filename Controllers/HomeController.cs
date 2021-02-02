@@ -1,5 +1,6 @@
 ﻿using POS.Helper;
 using POS.Models;
+using System;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -17,7 +18,12 @@ namespace POS.Controllers
         {
             return View();
         }
-       // [HttpGet]
+        // [HttpGet]
+        [AuthorizationFilter]
+        public ActionResult UserCreate()
+        {
+            return View();
+        }
         public ActionResult Login()
         {
 
@@ -40,6 +46,25 @@ namespace POS.Controllers
                 isLogged = false;
             }
             return Json(isLogged, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult SaveUser(User user)
+        {
+            POSEntities db = new POSEntities();
+            bool isSuccess = true;
+            try
+            {
+                user.Status = 1;
+                user.Password = AppHelper.GetMd5Hash(user.Password);
+                db.Users.Add(user);
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+                isSuccess = false;
+            }
+
+            return Json(isSuccess, JsonRequestBehavior.AllowGet);
         }
 
     }
