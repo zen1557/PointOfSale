@@ -7,15 +7,17 @@
       <Diagram DiagramId="ca14848ca19842cca7d9c22cca726762" Name="Diagram1">
         <EntityTypeShape EntityType="POSModel.Category" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="POSModel.Product" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="POSModel.ProductQuantity" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="POSModel.Sale" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="POSModel.SalesDetail" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="POSModel.sysdiagram" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="POSModel.User" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
         <AssociationConnector Association="POSModel.FK_Product_Category" ManuallyRouted="false" />
-        <AssociationConnector Association="POSModel.FK_ProductQuantity_Product" ManuallyRouted="false" />
         <AssociationConnector Association="POSModel.FK_SalesDetail_Sale" ManuallyRouted="false" />
         <EntityTypeShape EntityType="POSModel.RolePermission" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="POSModel.Batch" Width="1.5" PointX="6" PointY="11.25" />
+        <EntityTypeShape EntityType="POSModel.ProductStock" Width="1.5" PointX="8.25" PointY="3.75" />
+        <AssociationConnector Association="POSModel.FK_ProductStock_Batch" />
+        <AssociationConnector Association="POSModel.FK_ProductQuantity_Product1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

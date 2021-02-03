@@ -12,20 +12,17 @@ namespace POS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Product
+    public partial class Batch
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Product()
+        public Batch()
         {
             this.ProductStocks = new HashSet<ProductStock>();
         }
     
-        public int ProductId { get; set; }
-        public string Name { get; set; }
-        public Nullable<int> CategoryId { get; set; }
-        public Nullable<int> Status { get; set; }
+        public int BatchId { get; set; }
+        public string BatchName { get; set; }
     
-        public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductStock> ProductStocks { get; set; }
     }

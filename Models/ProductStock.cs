@@ -12,12 +12,16 @@ namespace POS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ProductQuantity
+    public partial class ProductStock
     {
         public int ProductQtyId { get; set; }
         public Nullable<int> ProductId { get; set; }
         public Nullable<int> Quantity { get; set; }
+        public Nullable<int> BatchId { get; set; }
+        public Nullable<decimal> PurchasePrice { get; set; }
+        public Nullable<decimal> SalesPrice { get; set; }
     
+        public virtual Batch Batch { get; set; }
         public virtual Product Product { get; set; }
     }
 }
