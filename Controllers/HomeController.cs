@@ -227,6 +227,57 @@ namespace POS.Controllers
             }).ToList();
             return Json(modefiedData, JsonRequestBehavior.AllowGet);
         }
+        [AuthorizationFilter]
+        public ActionResult ProductStock()
+        {
+            return View();
+        }
+        [HttpPost]
+        public JsonResult SaveProductStock(ProductStock stock)
+        {
+            POS.Helper.AppHelper.ReturnMessage retMessage = new AppHelper.ReturnMessage();
+            POSEntities db = new POSEntities();
+            retMessage.IsSuccess = true;
+
+            if (stock.ProductQtyId > 0)
+            {
+                db.Entry(stock).State = EntityState.Modified;
+                retMessage.Messagae = "Update Success!";
+            }
+            else
+            {
+                db.ProductStocks.Add(stock);
+                retMessage.Messagae = "Save Success!";
+            }
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+                retMessage.IsSuccess = false;
+            }
+
+            return Json(retMessage, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult GetAllProductStocks()
+        {
+            POSEntities db = new POSEntities();
+            var dataList = db.ProductStocks.Include("Product").Include("Batch").ToList();
+            var modefiedData = dataList.Select(x => new
+            {
+                ProductQtyId = x.ProductQtyId,
+                ProductId = x.ProductId,
+                ProductName = x.Product.Name,
+                Quantity = x.Quantity,
+                BatchId = x.BatchId,
+                BatchName = x.Batch.BatchName,
+                PurchasePrice = x.PurchasePrice,
+                SalesPrice = x.SalesPrice
+            }).ToList();
+            return Json(modefiedData, JsonRequestBehavior.AllowGet);
+        }
 
 
     }
