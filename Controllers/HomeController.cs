@@ -87,6 +87,47 @@ namespace POS.Controllers
             Session["Role"] = null;
             return RedirectToAction("Login");
         }
+        [AuthorizationFilter]
+        public ActionResult Category()
+        {
+            return View();
+        }
+        [HttpPost]
+        public JsonResult SaveCategory(Category cat)
+        {
+            POSEntities db = new POSEntities();
+            bool isSuccess = true;
+            if (cat.CategoryId > 0)
+            {
+                db.Entry(cat).State = EntityState.Modified;
+            }
+            else
+            {
+                cat.Status = 1;
+                db.Categories.Add(cat);
+            }
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+                isSuccess = false;
+            }
+            return Json(isSuccess, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult GetAllGetegory()
+        {
+            POSEntities db = new POSEntities();
+            var dataList = db.Categories.Where(x => x.Status == 1).ToList();
+            var data = dataList.Select(x => new {
+                CategoryId = x.CategoryId,
+                Name = x.Name,
+                Status = x.Status
+            });
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
 
     }
 }
