@@ -128,6 +128,50 @@ namespace POS.Controllers
             });
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+        [AuthorizationFilter]
+        public ActionResult Product()
+        {
+            return View();
+        }
+        [HttpPost]
+        public JsonResult SaveProduct(Product product)
+        {
+            POSEntities db = new POSEntities();
+            bool isSuccess = true;
+             if (product.ProductId > 0)
+            {
+                db.Entry(product).State = EntityState.Modified;
+            }
+            else
+            {
+                db.Products.Add(product);
+            }
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+                isSuccess = false;
+            }
+          return Json(isSuccess, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult GetAllProduct()
+        {
+            POSEntities db = new POSEntities();
+            var dataList = db.Products.Include("Category").ToList();
+            var modefiedData = dataList.Select(x => new
+            {
+                ProductId = x.ProductId,
+                CategoryId = x.CategoryId,
+                Name = x.Name,
+                Status = x.Status,
+                CategoryName = x.Category.Name
+            }).ToList();
+            return Json(modefiedData, JsonRequestBehavior.AllowGet);
+        }
+
 
     }
 }

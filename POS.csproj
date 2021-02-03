@@ -3061,6 +3061,7 @@
     <Content Include="Views\Home\AccessDenied.cshtml" />
     <Content Include="Views\Home\UserCreate.cshtml" />
     <Content Include="Views\Home\Category.cshtml" />
+    <Content Include="Views\Home\Product.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
