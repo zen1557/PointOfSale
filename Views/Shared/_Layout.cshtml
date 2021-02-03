@@ -13,6 +13,8 @@
     <!-- Custom styles for this template-->
     <link href="~/Template/Sb Admin2/css/sb-admin-2.min.css" rel="stylesheet" />
     <script src="~/Template/Sb Admin2/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Scripts/angular.js"></script>
+    <script src="~/Scripts/Home/app.js"></script>
 </head>
 <body id="page-top">
     <!-- Page Wrapper -->
@@ -50,7 +52,11 @@
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="/Home/UserCreate">User Create</a>
+                        <a class="collapse-item" href="/Home/UserCreate">User management</a>
+                        <a class="collapse-item" href="/Home/Category">Category management</a>
+                        <a class="collapse-item" href="/Home/Product">Product management</a>
+                        <a class="collapse-item" href="/Home/Batch">Batch management</a>
+                        <a class="collapse-item" href="/Home/ProductStock">Stock management</a>
                     </div>
                 </div>
             </li>
@@ -333,6 +339,7 @@
 
 
     <!-- Bootstrap core JavaScript-->
+
     <script src="~/Template/Sb Admin2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Core plugin JavaScript-->
     <script src="~/Template/Sb Admin2/vendor/jquery-easing/jquery.easing.min.js"></script>

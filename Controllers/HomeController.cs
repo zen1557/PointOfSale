@@ -171,6 +171,62 @@ namespace POS.Controllers
             }).ToList();
             return Json(modefiedData, JsonRequestBehavior.AllowGet);
         }
+        [AuthorizationFilter]
+        public ActionResult Batch()
+        {
+            return View();
+        }
+        [HttpPost]
+        public JsonResult SaveBatch(Batch batch)
+        {
+            POS.Helper.AppHelper.ReturnMessage retMessage = new AppHelper.ReturnMessage();
+            POSEntities db = new POSEntities();
+            retMessage.IsSuccess = true;
+
+            if (batch.BatchId > 0)
+            {
+                db.Entry(batch).State = EntityState.Modified;
+                retMessage.Messagae = "Update Success!";
+            }
+            else
+            {
+                batch.BatchName = batch.BatchName + db.Batches.Count();
+                var batchData = db.Batches.Where(x => x.BatchName.Equals(batch.BatchName)).SingleOrDefault();
+                if (batchData == null)
+                {
+                    db.Batches.Add(batch);
+                    retMessage.Messagae = "Save Success!";
+                }
+                else
+                {
+                    retMessage.IsSuccess = false;
+                    retMessage.Messagae = "This batch already exist!Please refresh and again try!";
+                }
+            }
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+                retMessage.IsSuccess = false;
+            }
+
+            return Json(retMessage, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetAllBatch()
+        {
+            POSEntities db = new POSEntities();
+            var dataList = db.Batches.ToList();
+            var modefiedData = dataList.Select(x => new
+            {
+                BatchId = x.BatchId,
+                BatchName = x.BatchName,
+            }).ToList();
+            return Json(modefiedData, JsonRequestBehavior.AllowGet);
+        }
 
 
     }
